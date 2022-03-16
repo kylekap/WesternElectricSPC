@@ -1,0 +1,23 @@
+https://realpython.com/python-pep8/
+
+https://docs.python-guide.org/writing/structure/
+
+
+To create Virtual Environment:
+    py -m venv env
+
+
+To Activate
+    env\Scripts\activate
+
+
+To freeze requirements.txt
+    pip freeze > requirements.txt
+
+
+To Install Black (code formatting)
+    pip install black
+
+
+To apply black
+    py -m black [filename]
