@@ -9,25 +9,32 @@ My attempt at utilizing the Western Electric Company rules for statistical proce
 1. Take input of data
 2. Calculate points that fall out of each rule
 3. Graph data
-4. Show points that violate rules
+4. Show/indicate/flag points that violate rules
 
 ## To Do, Program
-- [ ] 
-- [ ] \(Optional) 
+- [x] Implement rule 1
+- [x] Implement rule 2
+- [ ] Implement rule 3
+- [ ] Implement rule 4
+- [ ] Implement rule 5
+- [ ] Implement rule 6
+- [ ] Implement rule 7
+- [ ] Implement rule 8
+- [ ] Add graphical indicator to rule violations
+- [ ] Add output file for rule violations
+- [ ] \(Optional) Create way to select applied rules
 
 ## Resources utilized
-
+[Defininitions of WECO rules](https://quinn-curtis.com//index.php/spcnamedrulesets/)
 <!--[Format Guideline](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)-->
 
-
-There are 4 primary WE rules:
-
+### There are 4 primary WE rules:
 1. The most recent point plots outside one of the 3-sigma control limits[^1]
 2. Two of the three most recent points plot outside and on the same side as one of the 2-sigma control limits.[^2]
 3. Four of the five most recent points plot outside and on the same side as one of the 1-sigma control limits.[^3]
 4. Eight out of the last eight points plot on the same side of the center line, or target value.[^4]
 
-There are 4 supplemental / trending WE rules:
+### There are 4 supplemental / trending WE rules:
 
 5. Six points in a row increasing or decreasing[^5]
 6. Fifteen points in a row within one sigma[^6]
@@ -35,6 +42,7 @@ There are 4 supplemental / trending WE rules:
 8. Eight points in a row outside one sigma[^8]
 
 
+### Footnotes
 [^1]: If a point lies outside either of these limits, there is only a 0.3% chance that this was caused by the normal process.
 [^2]: The probability that any point will fall outside the warning limit is only 5%. The chances that two out of three points in a row fall outside the warning limit is only about 1%.
 [^3]: In normal processing, 68% of points fall within one sigma of the mean, and 32% fall outside it. The probability that 4 of 5 points fall outside of one sigma is only about 3%.
