@@ -27,10 +27,9 @@ My attempt at utilizing the Western Electric Company rules for statistical proce
 - [ ] \(Optional) Probably get some better colors / style for the plot
 
 
-## Resources utilized
-[Defininitions of WECO rules](https://quinn-curtis.com//index.php/spcnamedrulesets/)
-[Interpreting WECO findings](https://www.spcforexcel.com/knowledge/control-chart-basics/control-chart-rules-interpretation)
-<!--[Format Guideline](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)-->
+## Resources utilized & suggested reading
+- [Defininitions of WECO rules](https://quinn-curtis.com//index.php/spcnamedrulesets/)
+- [Interpreting WECO findings](https://www.spcforexcel.com/knowledge/control-chart-basics/control-chart-rules-interpretation)
 
 ### There are 4 primary WE rules:
 1. The most recent point plots outside one of the 3-sigma control limits[^1]
@@ -54,3 +53,5 @@ My attempt at utilizing the Western Electric Company rules for statistical proce
 [^6]: In normal operation, 68% of points will fall within one sigma of the mean. The probability that 15 points in a row will do so, is less than 1%.
 [^7]: The chances that the second point is always higher than (or always lower than) the preceding point, for all seven pairs is only about 1%.
 [^8]: Since 68% of points lie within one sigma of the mean, the probability that eight points in a row fall outside of the one-sigma line is less than 1%.
+
+<!--[Format Guideline](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)-->
