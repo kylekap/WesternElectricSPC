@@ -14,18 +14,22 @@ My attempt at utilizing the Western Electric Company rules for statistical proce
 ## To Do, Program
 - [x] Implement rule 1
 - [x] Implement rule 2
-- [ ] Implement rule 3
-- [ ] Implement rule 4
-- [ ] Implement rule 5
-- [ ] Implement rule 6
-- [ ] Implement rule 7
-- [ ] Implement rule 8
-- [ ] Add graphical indicator to rule violations
+- [x] Implement rule 3
+- [x] Implement rule 4
+- [x] Implement rule 5
+- [x] Implement rule 6
+- [x] Implement rule 7
+- [x] Implement rule 8
+- [x] Add graphical indicator to rule violations
 - [ ] Add output file for rule violations
 - [ ] \(Optional) Create way to select applied rules
+- [ ] \(Optional) Create way to label violation points
+- [ ] \(Optional) Probably get some better colors / style for the plot
+
 
 ## Resources utilized
 [Defininitions of WECO rules](https://quinn-curtis.com//index.php/spcnamedrulesets/)
+[Interpreting WECO findings](https://www.spcforexcel.com/knowledge/control-chart-basics/control-chart-rules-interpretation)
 <!--[Format Guideline](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)-->
 
 ### There are 4 primary WE rules:
@@ -35,7 +39,6 @@ My attempt at utilizing the Western Electric Company rules for statistical proce
 4. Eight out of the last eight points plot on the same side of the center line, or target value.[^4]
 
 ### There are 4 supplemental / trending WE rules:
-
 5. Six points in a row increasing or decreasing[^5]
 6. Fifteen points in a row within one sigma[^6]
 7. Fourteen points in a row alternating direction[^7]
