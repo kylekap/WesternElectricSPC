@@ -21,10 +21,10 @@ My attempt at utilizing the Western Electric Company rules for statistical proce
 - [x] Implement rule 7
 - [x] Implement rule 8
 - [x] Add graphical indicator to rule violations
-- [ ] Add output file for rule violations
-- [ ] \(Optional) Create way to select applied rules
-- [ ] \(Optional) Create way to label violation points
-- [ ] \(Optional) Probably get some better colors / style for the plot
+- [x] Create way to label violation points
+- [ ] \(Optional) Add output file for rule violations
+- [ ] \(Optional) Create way to select which rules should be applied in chart labels
+- [ ] \(Optional) Create way to select which rules should have annotations in chart
 
 
 ## Resources utilized & suggested reading

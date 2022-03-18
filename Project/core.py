@@ -110,6 +110,14 @@ class WECO:
         """
         return
 
+    def WECOOutliers(self, boolindex, datalist, rounding=1):
+        li = []
+        a = [i for i, x in enumerate(boolindex) if x]
+        for ea in a:
+            tup = (ea, round(datalist[ea], rounding))
+            li.append(tup)
+        return li
+
     def graph(self):
         xs = [x for x in range(len(self.data))]
         marker = 4
@@ -216,6 +224,10 @@ class WECO:
             markersize=marker * 2,
         )
 
+        for rule in [self.weco1]:
+            for val in self.WECOOutliers(rule, self.data, rounding=1):
+                plt.annotate(val, xy=val, fontsize=10)
+
         self.plotAxlines()
         self.plotFormat()
         plt.show()
@@ -248,7 +260,7 @@ def read_practice_data(filename="Tests/TestData.csv", numrows=1000):
 
 
 def main():
-    li = read_practice_data(numrows=4000)
+    li = read_practice_data(numrows=750)
     test = WECO(li, "Male Height")
     test.graph()
 
