@@ -12,19 +12,29 @@ My attempt at utilizing the Western Electric Company rules for statistical proce
 4. Show/indicate/flag points that violate rules
 
 ## To Do, Program
-- [x] Implement rule 1
-- [x] Implement rule 2
-- [x] Implement rule 3
-- [x] Implement rule 4
-- [x] Implement rule 5
-- [x] Implement rule 6
-- [x] Implement rule 7
-- [x] Implement rule 8
-- [x] Add graphical indicator to rule violations
-- [x] Create way to label violation points
-- [ ] \(Optional) Add output file for rule violations
-- [ ] \(Optional) Create way to select which rules should be applied in chart labels
-- [ ] \(Optional) Create way to select which rules should have annotations in chart
+- [x] Implement rule 1 (self.weco1)
+- [x] Implement rule 2 (self.weco2)
+- [x] Implement rule 3 (self.weco3)
+- [x] Implement rule 4 (self.weco4)
+- [x] Implement rule 5 (self.weco5)
+- [x] Implement rule 6 (self.weco6)
+- [x] Implement rule 7 (self.weco7)
+- [x] Implement rule 8 (self.weco8)
+- [x] Add graphical indicator to rule violations (self.Graph())
+- [x] Create way to label violation points (self.Graph())
+- [] Improve input checking on self.wecorules
+- [] Improve input checking on self.annotatelist
+- [] Move CSV & such to tests.py
+
+- [x] \(Optional) Add output file for rule violations (Self.ViolationsCSV)
+- [x] \(Optional) Create way to select which rules should be applied in chart labels (self.wecorules)
+- [x] \(Optional) Create way to select which rules should have annotations in chart (self.annotatelist)
+- [] \(Optional) Improvements to ways of creating WECO object
+
+## Known issues
+1. Rules 6 estimates all are invalid
+2. Rules 7 estimates all are invalid
+3. Rules 8 estimates all are invalid
 
 
 ## Resources utilized & suggested reading

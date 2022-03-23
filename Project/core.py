@@ -1,11 +1,29 @@
 import matplotlib.pyplot as plt
 import csv
 
+# 6,7,8 do not work in the graph?
+
 
 class WECO:
-    def __init__(self, li, variable_name="Variable"):
+    def __init__(
+        self,
+        li,
+        variable_name="Variable",
+        wecorules=["1", "2", "3", "4", "5", "6", "7", "8"],
+        annotatelist=[],
+    ):
+        """_summary_
+
+        Args:
+            li (_type_): _description_
+            variable_name (str, optional): _description_. Defaults to "Variable".
+            wecorules (list, optional): _description_. Defaults to ["1", "2", "3", "4", "5", "6", "7", "8"].
+            annotatelist (list, optional): _description_. Defaults to [].
+        """        
         self.data = [x for x in li if type(x) in [int, float]]  # clean non-numeric
-        self.variable_name = variable_name
+        self.variable_name = str(variable_name)
+        self.applyrules = [x for x in wecorules if x in ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        self.annotatelist = [x for x in annotatelist if x in ["1", "2", "3", "4", "5", "6", "7", "8"]]
 
         # pre-calculate useful values
         self.av = self.WecoAv()
@@ -37,14 +55,40 @@ class WECO:
         self.weco7 = self.rule7(self.data)
         self.weco8 = self.PrimaryRules(self.zabs, sigmalimit=0, qtypoints=8, qtylimit=8)
 
+        self.rule_dict = {
+            "1": self.weco1,
+            "2": self.weco2,
+            "3": self.weco3,
+            "4": self.weco4,
+            "5": self.weco5,
+            "6": self.weco6,
+            "7": self.weco7,
+            "8": self.weco8,
+        }
+
     def WecoAv(self):
+        """Calculate mean of given self.data set.
+
+        Returns:
+            float: Mean value
+        """        
         return round((sum(self.data) / len(self.data)), 5)
 
     def WecoStd(self):
+        """Calculate stddev of given self.data set.
+
+        Returns:
+            float: StdDev value
+        """        
         variance = sum([((x - self.av) ** 2) for x in self.data]) / len(self.data)
         return round((variance**0.5), 5)
 
     def WecoZ(self):
+        """Calculate Z scores of given self.data set based on std & av
+
+        Returns:
+            list: Z scores of items
+        """        
         li = []
         for val in self.data:
             li.append(round((val - self.av) / self.std, 5))
@@ -112,10 +156,11 @@ class WECO:
 
     def WECOOutliers(self, boolindex, datalist, rounding=1):
         li = []
-        a = [i for i, x in enumerate(boolindex) if x]
-        for ea in a:
-            tup = (ea, round(datalist[ea], rounding))
-            li.append(tup)
+        if boolindex is not None and len(boolindex) > 0:
+            a = [i for i, x in enumerate(boolindex) if x]
+            for ea in a:
+                tup = (ea, round(datalist[ea], rounding))
+                li.append(tup)
         return li
 
     def graph(self):
@@ -132,101 +177,36 @@ class WECO:
             markersize=marker,
         )
 
-        # Rules 1-4
-        plt.plot(
-            xs,
-            self.data,
-            markevery=self.weco1,
-            marker="D",
-            markeredgewidth=3,
-            ls="",
-            mfc="none",
-            label="Beyond Limits",
-            markersize=marker * 4,
-        )
-        plt.plot(
-            xs,
-            self.data,
-            markevery=self.weco2,
-            marker="o",
-            markeredgewidth=3,
-            ls="",
-            mfc="none",
-            label="Zone A",
-            markersize=marker * 3.75,
-        )
-        plt.plot(
-            xs,
-            self.data,
-            markevery=self.weco3,
-            marker="v",
-            markeredgewidth=3,
-            ls="",
-            mfc="none",
-            label="Zone B",
-            markersize=marker * 3.5,
-        )
-        plt.plot(
-            xs,
-            self.data,
-            markevery=self.weco4,
-            marker="^",
-            markeredgewidth=3,
-            ls="",
-            mfc="none",
-            label="Zone C",
-            markersize=marker * 3.25,
-        )
+        formatting = {
+            "1": {"label": "Beyond Limits", "marker": "D", "markersizeadj": 4},
+            "2": {"label": "Zone A", "marker": "o", "markersizeadj": 3.75},
+            "3": {"label": "Zone B", "marker": "v", "markersizeadj": 3.5},
+            "4": {"label": "Zone C", "marker": "^", "markersizeadj": 3.25},
+            "5": {"label": "Trending", "marker": "s", "markersizeadj": 2},
+            "6": {"label": "Stratification", "marker": "s", "markersizeadj": 2},
+            "7": {"label": "Over-Control", "marker": "s", "markersizeadj": 2},
+            "8": {"label": "Mixture", "marker": "s", "markersizeadj": 2},
+        }
 
-        # Rules 5-8
-        plt.plot(
-            xs,
-            self.data,
-            markevery=self.weco4,
-            marker="s",
-            markeredgewidth=2,
-            ls="",
-            mfc="none",
-            label="Trending",
-            markersize=marker * 2,
-        )
-        plt.plot(
-            xs,
-            self.data,
-            markevery=self.weco4,
-            marker="s",
-            markeredgewidth=2,
-            ls="",
-            mfc="none",
-            label="Stratification",
-            markersize=marker * 2,
-        )
-        plt.plot(
-            xs,
-            self.data,
-            markevery=self.weco4,
-            marker="s",
-            markeredgewidth=2,
-            ls="",
-            mfc="none",
-            label="Over-Control",
-            markersize=marker * 2,
-        )
-        plt.plot(
-            xs,
-            self.data,
-            markevery=self.weco4,
-            marker="s",
-            markeredgewidth=2,
-            ls="",
-            mfc="none",
-            label="Mixture",
-            markersize=marker * 2,
-        )
+        for rule in self.applyrules:
+            plt.plot(
+                xs,
+                self.data,
+                markevery=self.rule_dict.get(rule),
+                markeredgewidth=3,
+                ls="",
+                mfc="none",
+                marker=formatting.get(rule, {}).get("marker", "o"),
+                label=formatting.get(rule, {}).get("label", rule),
+                markersize=marker * formatting.get(rule, {}).get("markersizeadj", 2),
+            )
 
-        for rule in [self.weco1]:
-            for val in self.WECOOutliers(rule, self.data, rounding=1):
-                plt.annotate(val, xy=val, fontsize=10)
+        if len(self.annotatelist) > 0:
+            for rule in self.annotatelist:
+                for val in self.WECOOutliers(
+                    self.rule_dict.get(rule), self.data, rounding=1
+                ):
+                    plt.annotate(val, xy=val, fontsize=10)
 
         self.plotAxlines()
         self.plotFormat()
@@ -247,6 +227,20 @@ class WECO:
         plt.ylabel(self.variable_name + " Value")
         plt.legend(loc="best")
 
+    def ViolationsCSV(self, filename=r"Results/Outliers.CSV"):
+        li = []
+        for k, v in self.rule_dict.items():
+            a = self.WECOOutliers(v, self.data, rounding=1)
+            for val in a:
+                temp = list(val)
+                temp.append(k)
+                li.append(temp)
+
+        with open(filename, "w", newline="") as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["Item #", "Value", "Rule# Violated"])
+            writer.writerows(li)
+
 
 def read_practice_data(filename="Tests/TestData.csv", numrows=1000):
     results = []
@@ -261,7 +255,10 @@ def read_practice_data(filename="Tests/TestData.csv", numrows=1000):
 
 def main():
     li = read_practice_data(numrows=750)
-    test = WECO(li, "Male Height")
+    test = WECO(
+        li, "Male Height", wecorules=["1", "2", "3", "4", "5", "8"], annotatelist=["8"]
+    )
+    test.ViolationsCSV()
     test.graph()
 
 
