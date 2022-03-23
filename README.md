@@ -22,14 +22,14 @@ My attempt at utilizing the Western Electric Company rules for statistical proce
 - [x] Implement rule 8 (self.weco8)
 - [x] Add graphical indicator to rule violations (self.Graph())
 - [x] Create way to label violation points (self.Graph())
-- [] Improve input checking on self.wecorules
-- [] Improve input checking on self.annotatelist
-- [] Move CSV & such to tests.py
+- [ ] Improve input checking on self.wecorules
+- [ ] Improve input checking on self.annotatelist
+- [ ] Move CSV & such to tests.py
 
 - [x] \(Optional) Add output file for rule violations (Self.ViolationsCSV)
 - [x] \(Optional) Create way to select which rules should be applied in chart labels (self.wecorules)
 - [x] \(Optional) Create way to select which rules should have annotations in chart (self.annotatelist)
-- [] \(Optional) Improvements to ways of creating WECO object
+- [ ] \(Optional) Improvements to ways of creating WECO object
 
 ## Known issues
 1. Rules 6 estimates all are invalid
