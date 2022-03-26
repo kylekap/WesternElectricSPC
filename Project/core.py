@@ -1,5 +1,8 @@
-import matplotlib.pyplot as plt
 import csv
+from operator import is_
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 # 6,7,8 do not work in the graph?
 
@@ -19,11 +22,15 @@ class WECO:
             variable_name (str, optional): _description_. Defaults to "Variable".
             wecorules (list, optional): _description_. Defaults to ["1", "2", "3", "4", "5", "6", "7", "8"].
             annotatelist (list, optional): _description_. Defaults to [].
-        """        
+        """
         self.data = [x for x in li if type(x) in [int, float]]  # clean non-numeric
         self.variable_name = str(variable_name)
-        self.applyrules = [x for x in wecorules if x in ["1", "2", "3", "4", "5", "6", "7", "8"]]
-        self.annotatelist = [x for x in annotatelist if x in ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        self.applyrules = [
+            x for x in wecorules if x in ["1", "2", "3", "4", "5", "6", "7", "8"]
+        ]
+        self.annotatelist = [
+            x for x in annotatelist if x in ["1", "2", "3", "4", "5", "6", "7", "8"]
+        ]
 
         # pre-calculate useful values
         self.av = self.WecoAv()
@@ -50,10 +57,10 @@ class WECO:
         """
         self.weco5 = self.rule5(self.z, 6)
         self.weco6 = self.PrimaryRules(
-            self.zabs, sigmalimit=1, qtypoints=8, qtylimit=8, outside=False
+            self.zabs, sigmalimit=1, qtypoints=15, qtylimit=15, outside=False
         )
         self.weco7 = self.rule7(self.data)
-        self.weco8 = self.PrimaryRules(self.zabs, sigmalimit=0, qtypoints=8, qtylimit=8)
+        self.weco8 = self.PrimaryRules(self.zabs, sigmalimit=1, qtypoints=8, qtylimit=8)
 
         self.rule_dict = {
             "1": self.weco1,
@@ -71,7 +78,7 @@ class WECO:
 
         Returns:
             float: Mean value
-        """        
+        """
         return round((sum(self.data) / len(self.data)), 5)
 
     def WecoStd(self):
@@ -79,7 +86,7 @@ class WECO:
 
         Returns:
             float: StdDev value
-        """        
+        """
         variance = sum([((x - self.av) ** 2) for x in self.data]) / len(self.data)
         return round((variance**0.5), 5)
 
@@ -88,7 +95,7 @@ class WECO:
 
         Returns:
             list: Z scores of items
-        """        
+        """
         li = []
         for val in self.data:
             li.append(round((val - self.av) / self.std, 5))
@@ -108,6 +115,8 @@ class WECO:
         Returns:
             list : boolean list, failures represented by True
         """
+        countdown = 0
+        countup = 0
 
         res = [False for x in range(len(data))]
         for i in range(len(data) - (qtypoints - 1)):
@@ -117,8 +126,7 @@ class WECO:
                 countup = len([x for x in li if x > sigmalimit])
                 countdown = len([x for x in li if x < -sigmalimit])
             else:
-                countup = len([x for x in li if x < sigmalimit])
-                countdown = len([x for x in li if x > -sigmalimit])
+                countup = len([x for x in li if (x < sigmalimit and x > -sigmalimit)])
 
             if countup >= qtylimit or countdown >= qtylimit:
                 res[i + (qtypoints - 1)] = True
@@ -142,17 +150,23 @@ class WECO:
                 res[i + (qtypoints - 1)] = True
         return res
 
+    def is_alternating_signs(self, a):
+        return np.all(np.abs(np.diff(np.sign(a))) == 2)
+
     def rule7(self, data, qtypoints=14):
-        """res = [False for x in range(len(data))]
+        res = [False for x in range(len(data))]
+        modli = []
+        for i in range(1, len(data)):
+            if data[i] > data[i-1]:
+                modli.append(1)
+            else:
+                modli.append(-1)
 
-        for i in range(len(data) - (qtypoints - 1)):
-            li = data[i : i + (qtypoints)]
-            modli = []
-            for j in range(len(li)-1):
-                modli.append(li[j+1]-li[j])
-
-        """
-        return
+        for i in range(len(modli) - (qtypoints - 1)):
+            li = modli[i : i + (qtypoints)]
+            if(self.is_alternating_signs(li)):
+                res[i+(qtypoints-1)] = True
+        return res
 
     def WECOOutliers(self, boolindex, datalist, rounding=1):
         li = []
@@ -255,9 +269,8 @@ def read_practice_data(filename="Tests/TestData.csv", numrows=1000):
 
 def main():
     li = read_practice_data(numrows=750)
-    test = WECO(
-        li, "Male Height", wecorules=["1", "2", "3", "4", "5", "8"], annotatelist=["8"]
-    )
+    #li = [1,2,1,3,2,4,3,5,4,5,3,6,4,7,6,7,6,7,6,7,6,7,6,7,6,7,6,7]
+    test = WECO(li, "Male Height")#, wecorules=["7"], annotatelist=["7"])
     test.ViolationsCSV()
     test.graph()
 

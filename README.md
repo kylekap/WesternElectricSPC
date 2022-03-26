@@ -32,10 +32,7 @@ My attempt at utilizing the Western Electric Company rules for statistical proce
 - [ ] \(Optional) Improvements to ways of creating WECO object
 
 ## Known issues
-1. Rules 6 estimates all are invalid
-2. Rules 7 estimates all are invalid
-3. Rules 8 estimates all are invalid
-
+1. N/A
 
 ## Resources utilized & suggested reading
 - [Defininitions of WECO rules](https://quinn-curtis.com//index.php/spcnamedrulesets/)
