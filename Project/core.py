@@ -1,11 +1,6 @@
-import csv
-from operator import is_
 import numpy as np
+import csv as csv
 import matplotlib.pyplot as plt
-
-
-# 6,7,8 do not work in the graph?
-
 
 class WECO:
     def __init__(
@@ -150,7 +145,7 @@ class WECO:
                 res[i + (qtypoints - 1)] = True
         return res
 
-    def is_alternating_signs(self, a):
+    def alternating_signs(self, a):
         return np.all(np.abs(np.diff(np.sign(a))) == 2)
 
     def rule7(self, data, qtypoints=14):
@@ -164,7 +159,7 @@ class WECO:
 
         for i in range(len(modli) - (qtypoints - 1)):
             li = modli[i : i + (qtypoints)]
-            if(self.is_alternating_signs(li)):
+            if(self.alternating_signs(li)):
                 res[i+(qtypoints-1)] = True
         return res
 
@@ -256,23 +251,8 @@ class WECO:
             writer.writerows(li)
 
 
-def read_practice_data(filename="Tests/TestData.csv", numrows=1000):
-    results = []
-    with open(filename) as inputfile:
-        for row in csv.reader(inputfile):
-            if row[0] in ["Male", "Female"]:
-                results.append(float(row[2]))
-                if len(results) > numrows:
-                    break
-    return results
-
-
 def main():
-    li = read_practice_data(numrows=750)
-    #li = [1,2,1,3,2,4,3,5,4,5,3,6,4,7,6,7,6,7,6,7,6,7,6,7,6,7,6,7]
-    test = WECO(li, "Male Height")#, wecorules=["7"], annotatelist=["7"])
-    test.ViolationsCSV()
-    test.graph()
+    return None
 
 
 if __name__ == "__main__":

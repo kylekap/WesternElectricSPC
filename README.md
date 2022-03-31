@@ -22,9 +22,9 @@ My attempt at utilizing the Western Electric Company rules for statistical proce
 - [x] Implement rule 8 (self.weco8)
 - [x] Add graphical indicator to rule violations (self.Graph())
 - [x] Create way to label violation points (self.Graph())
-- [ ] Improve input checking on self.wecorules
-- [ ] Improve input checking on self.annotatelist
-- [ ] Move CSV & such to tests.py
+- [x] Improve input checking on self.wecorules
+- [x] Improve input checking on self.annotatelist
+- [x] Move CSV & such to tests.py
 
 - [x] \(Optional) Add output file for rule violations (Self.ViolationsCSV)
 - [x] \(Optional) Create way to select which rules should be applied in chart labels (self.wecorules)
