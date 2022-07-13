@@ -3,21 +3,35 @@ https://realpython.com/python-pep8/
 https://docs.python-guide.org/writing/structure/
 
 
-To create Virtual Environment:
-    py -m venv env
+To create virtual environment:
+> py -m venv env
+
+To activate
+> env\Scripts\activate
+
+To install requirements.txt
+> pip install -r requirements.txt
+
+To freeze requirements.txt after additional installs
+> pip freeze > requirements.txt
+
+Advanced flake8
+> flake8 Project --exit-zero --format=html --htmldir reports/flake8 --statistics --tee --output-file reports/flake8/flake8stats.txt
+
+Coverage
+>  py -m coverage run -m unittest discover -s tests
+
+> coverage xml -o reports/coverage/coverage.xml
+
+For genbadge (must do both those modules (ie flake8/coverage) commands first)
+> genbadge flake8 --output-file ./reports/flake8/badge.svg
+> genbadge coverage --output-file ./reports/coverage/badge.svg  
 
 
-To Activate
-    env\Scripts\activate
+Pre-commit setup
 
+> pre-commit install
 
-To freeze requirements.txt
-    pip freeze > requirements.txt
+> pre-commit run --all-files
 
-
-To Install Black (code formatting)
-    pip install black
-
-
-To apply black
-    py -m black [filename]
+> pre-commit autoupdate
