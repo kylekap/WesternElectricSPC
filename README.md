@@ -2,15 +2,18 @@
 Python project to implement Western Electric Company rules (WECO) Version 0.2.1
 
 ## Table of Contents
-- [About](#about)
-- [Requirements](#requirements)
-- [Usage](#usage)
-- [TODO](#todo)
-- [Known Issues](#known-issues)
-- [Authors](#authors)
-- [License](#license)
-- [CodeStyle](#codestyle)
-- [Badges](#badges)
+- [Western Electric rules](#western-electric-rules)
+  - [Table of Contents](#table-of-contents)
+  - [About](#about)
+    - [There are 4 primary WE rules:](#there-are-4-primary-we-rules)
+    - [There are 4 supplemental / trending WE rules:](#there-are-4-supplemental--trending-we-rules)
+  - [Requirements](#requirements)
+  - [Deployment / Usage](#deployment--usage)
+  - [Future goals](#future-goals)
+  - [Known issues](#known-issues)
+  - [CodeStyle](#codestyle)
+  - [Badges](#badges)
+  - [Footnotes](#footnotes)
 
 ## About
 1. Take input of data
@@ -44,76 +47,28 @@ For additional requirements and dependencies, please see the requirements.txt fi
 ## Deployment / Usage
 This module simply introduces the WECO class object. Usage will require citation elsewhere or additional files within this project.
 
-
-To create virtual environment:
-> py -m venv env
-
-To activate
-> env\Scripts\activate
-
-To install requirements.txt
-> pip install -r requirements.txt
-
-
-## TODO
-### Pre-deployment
-- [x] Implement rule 1 (self.weco1)
-- [x] Implement rule 2 (self.weco2)
-- [x] Implement rule 3 (self.weco3)
-- [x] Implement rule 4 (self.weco4)
-- [x] Implement rule 5 (self.weco5)
-- [x] Implement rule 6 (self.weco6)
-- [x] Implement rule 7 (self.weco7)
-- [x] Implement rule 8 (self.weco8)
-- [x] Add graphical indicator to rule violations (self.Graph())
-- [x] Create way to label violation points (self.Graph())
-- [x] Improve input checking on self.wecorules
-- [x] Improve input checking on self.annotatelist
-- [x] Move CSV & such to tests.py
-### Pre-deployment, Optional
-- [x] \(Optional) Add output file for rule violations (Self.ViolationsCSV)
-- [x] \(Optional) Create way to select which rules should be applied in chart labels (self.wecorules)
-- [x] \(Optional) Create way to select which rules should have annotations in chart (self.annotatelist)
-
-### Release 0.2.1
-- [x] Add unittests
-- [x] Add coverage
-- [x] Add flake8 support
-- [x] Add pre-commit support
-- [x] Add ability to import dataframe
-- [x] Add abiliyt to specify colors (currently have to edit class __init__ though)
-- [x] Add ability to specify xaxis values (dataframe only)
-
-### Future goals
+## Future goals
 - [ ] Additional integrated testing (list support, checking graphs?)
-- [ ]
 
 ## Known issues
 1. N/A
 
 
-## Authors
-- [Kyle Patterson](https://github.com/kylekap)
-
-
-### License
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-
-### CodeStyle
+## CodeStyle
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Flake8 Status](./reports/flake8/badge.svg)](./reports/flake8/index.html)
 [![Coverage Status](./reports/coverage/badge.svg)](./reports/coverage/badge.svg)
-### Badges
+[![pre-commit enabled](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://pre-commit.com/)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+
+## Badges
 [![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![GitHub Issues](https://img.shields.io/github/issues/kylecuberg/PyTemplate.svg)](https://github.com/kylecuberg/PyTemplate/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylecuberg/PyTemplate.svg)](https://github.com/kylecuberg/PyTemplate/pulls)
-[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
-[![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
-[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
-[![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
+[![Python](https://img.shields.io/pypi/pyversions/cookiecutter-hypermodern-python-instance)](https://www.python.org/downloads/release/python-3100/)
 
-### Footnotes
+## Footnotes
 [^1]: If a point lies outside either of these limits, there is only a 0.3% chance that this was caused by the normal process.
 [^2]: The probability that any point will fall outside the warning limit is only 5%. The chances that two out of three points in a row fall outside the warning limit is only about 1%.
 [^3]: In normal processing, 68% of points fall within one sigma of the mean, and 32% fall outside it. The probability that 4 of 5 points fall outside of one sigma is only about 3%.

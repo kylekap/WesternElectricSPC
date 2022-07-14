@@ -1,8 +1,12 @@
-https://realpython.com/python-pep8/
+# Overview of useful python resources & common commands.
 
-https://docs.python-guide.org/writing/structure/
+## Resources
+- [PEP-8](https://realpython.com/python-pep8/)
+- [Writing Structure](https://docs.python-guide.org/writing/structure/)
+- [Google's Python Writing Guide](https://google.github.io/styleguide/pyguide.htm)
 
 
+## Common Commands
 To create virtual environment:
 > py -m venv env
 
@@ -16,7 +20,7 @@ To freeze requirements.txt after additional installs
 > pip freeze > requirements.txt
 
 Advanced flake8
-> flake8 Project --exit-zero --format=html --htmldir reports/flake8 --statistics --tee --output-file reports/flake8/flake8stats.txt
+> flake8 src --exit-zero --format=html --htmldir reports/flake8 --statistics --tee --output-file reports/flake8/flake8stats.txt
 
 Coverage
 >  py -m coverage run -m unittest discover -s tests

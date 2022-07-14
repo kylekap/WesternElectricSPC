@@ -1,5 +1,7 @@
+# Standard library
 import csv as csv
 
+# Third-party
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -22,8 +24,10 @@ class WECO:
             annotations (list): list of weco violations to annotate. Defaults to []
         """
         self.variable_name = str(variable_name)
-        self.data = self.weco_input_format(data)  # clean non-numeric
-        self.weco_xaxis_format(kwargs.get("xaxis", ""))  # select X axis and labels
+        self.df = pd.DataFrame()
+        self.yaxis = self.weco_input_format(data)  # clean non-numeric
+
+        self.weco_xaxis_format("")  # select X axis and labels
         self.applyrules = [
             x
             for x in kwargs.get("wecorules", ["1", "2", "3", "4", "5", "6", "7", "8"])
@@ -42,10 +46,10 @@ class WECO:
         # Optional spec limit graphing
         if "USL" in kwargs:
             self.USL = kwargs.get("USL", "")
-            self.plot_cl(self.USL, color="red", label="USL")
+            self.plot_sl(self.USL, color="red", label="USL")
         if "LSL" in kwargs:
             self.LSL = kwargs.get("LSL", "")
-            self.plot_cl(self.LSL, color="red", label="LSL")
+            self.plot_sl(self.LSL, color="red", label="LSL")
 
         # calculate Primary rules
         """ 1 - The most recent point plots outside one of the 3-sigma control limits
@@ -66,7 +70,7 @@ class WECO:
         """
         self.weco5 = self.rule5(self.z, 6)
         self.weco6 = self.PrimaryRules(self.zabs, sigmalimit=1, qtypoints=15, qtylimit=15, outside=False)
-        self.weco7 = self.rule7(self.data)
+        self.weco7 = self.rule7(self.yaxis)
         self.weco8 = self.PrimaryRules(self.zabs, sigmalimit=1, qtypoints=8, qtylimit=8)
 
         self.rule_dict = {
@@ -81,30 +85,39 @@ class WECO:
         }
 
     def WecoAv(self):
-        """Calculate mean of given self.data set.
+        """Calculate mean of given self.yaxis set.
 
         Returns:
             float: Mean value
         """
-        return round((sum(self.data) / len(self.data)), 5)
+        try:
+            av = round((sum(self.yaxis) / len(self.yaxis)), 5)
+        except Exception as E:
+            print(E, type(E).__name__, __file__, E.__traceback__.tb_lineno)
+            av = 0
+        return av
 
     def WecoStd(self):
-        """Calculate stddev of given self.data set.
+        """Calculate stddev of given self.yaxis set.
 
         Returns:
             float: StdDev value
         """
-        variance = sum(((x - self.av) ** 2) for x in self.data) / len(self.data)
+        try:
+            variance = sum(((x - self.av) ** 2) for x in self.yaxis) / len(self.yaxis)
+        except Exception as E:
+            print(E, type(E).__name__, __file__, E.__traceback__.tb_lineno)
+            variance = 0
         return round((variance**0.5), 5)
 
     def WecoZ(self):
-        """Calculate Z scores of given self.data set based on std & av
+        """Calculate Z scores of given self.yaxis set based on std & av
 
         Returns:
             list: Z scores of items
         """
         li = []
-        for val in self.data:
+        for val in self.yaxis:
             li.append(round((val - self.av) / self.std, 5))
         return li
 
@@ -117,14 +130,17 @@ class WECO:
         Returns:
             _type_: _description_
         """
+
+        if isinstance(data, type(pd.DataFrame())) and self.variable_name in data.columns:
+            data[self.variable_name] = pd.to_numeric(data[self.variable_name], errors="coerce")
+            self.df = data
+            return data[self.variable_name]
+
         if isinstance(data, list):
             return [x for x in data if type(x) in [int, float]]  # clean non-numeric
 
-        if isinstance(data, type(pd.DataFrame())) and self.variable_name in data.columns:
-            return pd.to_numeric(data[self.variable_name], errors="coerce")
-
         else:
-            return False
+            return []
 
     def weco_xaxis_format(self, x):
         """_summary_
@@ -132,12 +148,14 @@ class WECO:
         Args:
             x (_type_): _description_
         """
-        if isinstance(self.data, type(pd.DataFrame())) and x in self.data.columns:
-            self.xaxis_values = self.data[x]
-            self.xaxis_title = x
-        else:
-            self.xaxis_values = [x for x in range(len(self.data))]
-            self.xaxis_name = x
+
+        # disable the dataframe functionality until determine how to deal with sorting X axis and Y axis values
+        # if isinstance(self.df, type(pd.DataFrame())) and (x in self.df.columns):
+        #     self.xaxis_values = self.df[x]
+        #     self.xaxis_title = x
+        # else:
+        self.xaxis_values = [x for x in range(len(self.yaxis))]
+        self.xaxis_name = x
 
     def PrimaryRules(self, data, sigmalimit=2, qtypoints=2, qtylimit=3, outside=True):
         """Most rules are variations of - "some qtypoints of the last qtylimit points are [< or >] than sigmalimit sigmas in the same direction".
@@ -250,7 +268,7 @@ class WECO:
         plt.style.use("fivethirtyeight")
         plt.plot(
             xs,
-            self.data,
+            self.yaxis,
             marker="o",
             ls="",
             markerfacecolor="blue",
@@ -272,7 +290,7 @@ class WECO:
         for rule in self.applyrules:
             plt.plot(
                 xs,
-                self.data,
+                self.yaxis,
                 markevery=self.rule_dict.get(rule),
                 markeredgewidth=3,
                 ls="",
@@ -284,7 +302,7 @@ class WECO:
 
         if len(self.annotatelist) > 0:
             for rule in self.annotatelist:
-                for val in self.WECOOutliers(self.rule_dict.get(rule), self.data, rounding=1):
+                for val in self.WECOOutliers(self.rule_dict.get(rule), self.yaxis, rounding=1):
                     plt.annotate(val, xy=val, fontsize=10)
 
         self.plot_cl()
@@ -320,7 +338,7 @@ class WECO:
         """
         li = []
         for k, v in self.rule_dict.items():
-            a = self.WECOOutliers(v, self.data, rounding=1)
+            a = self.WECOOutliers(v, self.yaxis, rounding=1)
             for val in a:
                 temp = list(val)
                 temp.append(k)
@@ -333,10 +351,5 @@ class WECO:
         return li
 
 
-def main():
-    return None
-
-
 if __name__ == "__main__":
     """[summary]"""
-    main()

@@ -1,18 +1,30 @@
+# Standard library
 import os
 import sys
 import unittest
 
+# Third-party
 import pandas as pd
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-import Project.core
+# First-party/Local
+import src.core
 
 
 class test_Weco(unittest.TestCase):
-    test_weco = Project.core.WECO(
+    test_weco_str = src.core.WECO(data="A")
+    test_weco_li = src.core.WECO(data=[1, 2, 3, 4])
+
+    test_weco = src.core.WECO(
         data=pd.read_csv("Tests/TestData.csv", nrows=750, header=0),
         variable_name="Height",
+        USL=78,
+        LSL=58,
+        cl=[0, 1, 2, 3],
+        annotations=["1", "2"],
     )
+    test_weco.graph()
+    test_weco.ViolationsCSV()
 
     def test_input_var(self):
         self.assertEqual(self.test_weco.variable_name, "Height")
@@ -50,6 +62,10 @@ class test_Weco(unittest.TestCase):
                 [731, 67.1, "7"],
             ],
         )
+
+    def test_graphs(self):
+        self.test_weco
+        return None
 
 
 if __name__ == "__main__":
