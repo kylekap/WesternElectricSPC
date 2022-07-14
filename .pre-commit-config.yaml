@@ -9,10 +9,11 @@ repos:
     - id: check-docstring-first
     - id: debug-statements
     - id: name-tests-test
-  - repo: https://github.com/asottile/reorder_python_imports
-    rev: v3.8.1
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
     hooks:
-    - id: reorder-python-imports
+      - id: isort
+        name: isort (python)
   - repo: https://github.com/asottile/pyupgrade
     rev: v2.37.1
     hooks:

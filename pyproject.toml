@@ -1,0 +1,70 @@
+# NOTE: you have to use single-quoted strings in TOML for regular expressions.
+# It's the equivalent of r-strings in Python.  Multiline strings are treated as
+# verbose regular expressions by Black.  Use [ ] to denote a significant space
+# character.
+
+[build-system]
+requires = ['setuptools >= 40.6.0', 'wheel']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'WesternElectricSPC'
+version = '0.3.1'
+description = 'Python class for generating Western Electric Statistical Process Control graphs & models'
+readme = 'README.md'
+requires-python = '>=3.7'
+license = 'MIT'
+keywords = ['Python','Western Electric']
+authors = [{email = 'kylekaptbone@yahoo.com'},{name = 'Kyle Patterson'}]
+classifiers = ['Programming Language :: Python']
+dynamic = ['readme']
+
+[tool.setuptools.dynamic]
+readme = {file = ['README.md']}
+
+[dependencies]
+matplotlib = '>=3.5.1'
+numpy = '>=1.23.0'
+pandas = '>=1.4.3'
+requests = '>=2.28.1'
+XlsxWriter = '>=3.0.3'
+
+[dev-dependencies]
+black = '>=22.3.0'
+coverage = '>=6.4.2'
+flake8 = '>=4.0.1'
+flake8-html = '>=0.4.2'
+genbadge = '>=1.1.0'
+isort = '>=5.10.1'
+pre-commit = '>=2.20.0'
+
+[project.urls]
+homepage = 'https://github.com/kylekap/WesternElectricSPC/'
+documentation = 'https://github.com/kylekap/WesternElectricSPC/tree/main/Docs/'
+repository = 'https://github.com/kylekap/WesternElectricSPC/'
+changelog = 'https://github.com/kylekap/WesternElectricSPC/tree/main/Docs/Changelog.md'
+
+
+[tool.black]
+line-length = 120
+target_version = ['py310']
+
+[tool.coverage.paths]
+source = ['src']
+tests = ['tests']
+
+[tool.coverage.run]
+source = ['src']
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+"if __name__ == .__main__.:"
+]
+
+[tool.isort]
+import_heading_firstparty = 'First-party/Local'
+import_heading_future = 'Future'
+import_heading_stdlib = 'Standard library'
+import_heading_thirdparty = 'Third-party'
+profile = 'black'
