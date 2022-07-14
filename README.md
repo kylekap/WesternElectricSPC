@@ -1,6 +1,18 @@
 # [Western Electric rules](https://www.wikiwand.com/en/Western_Electric_rules)
 Python project to implement Western Electric Company rules (WECO) Version 0.2.1
 
+
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Flake8 Status](./reports/flake8/badge.svg)](./reports/flake8/index.html)
+[![Coverage Status](./reports/coverage/badge.svg)](./reports/coverage/badge.svg)
+[![pre-commit enabled](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://pre-commit.com/)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![GitHub Issues](https://img.shields.io/github/issues/kylecuberg/PyTemplate.svg)](https://github.com/kylecuberg/PyTemplate/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylecuberg/PyTemplate.svg)](https://github.com/kylecuberg/PyTemplate/pulls)
+[![Python](https://img.shields.io/pypi/pyversions/cookiecutter-hypermodern-python-instance)](https://www.python.org/downloads/release/python-3100/)
+
 ## Table of Contents
 - [Western Electric rules](#western-electric-rules)
   - [Table of Contents](#table-of-contents)
@@ -11,8 +23,6 @@ Python project to implement Western Electric Company rules (WECO) Version 0.2.1
   - [Deployment / Usage](#deployment--usage)
   - [Future goals](#future-goals)
   - [Known issues](#known-issues)
-  - [CodeStyle](#codestyle)
-  - [Badges](#badges)
   - [Footnotes](#footnotes)
 
 ## About
@@ -54,19 +64,7 @@ This module simply introduces the WECO class object. Usage will require citation
 1. N/A
 
 
-## CodeStyle
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Flake8 Status](./reports/flake8/badge.svg)](./reports/flake8/index.html)
-[![Coverage Status](./reports/coverage/badge.svg)](./reports/coverage/badge.svg)
-[![pre-commit enabled](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://pre-commit.com/)
-[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 
-## Badges
-[![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylecuberg/PyTemplate.svg)](https://github.com/kylecuberg/PyTemplate/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylecuberg/PyTemplate.svg)](https://github.com/kylecuberg/PyTemplate/pulls)
-[![Python](https://img.shields.io/pypi/pyversions/cookiecutter-hypermodern-python-instance)](https://www.python.org/downloads/release/python-3100/)
 
 ## Footnotes
 [^1]: If a point lies outside either of these limits, there is only a 0.3% chance that this was caused by the normal process.
