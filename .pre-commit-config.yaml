@@ -15,7 +15,7 @@ repos:
       - id: isort
         name: isort (python)
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.37.2
+    rev: v2.37.3
     hooks:
     - id: pyupgrade
       args: [--py37-plus]
@@ -27,6 +27,6 @@ repos:
       args: # arguments to configure black
         - --line-length=120
   - repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1
+    rev: 5.0.2
     hooks:
     - id: flake8
